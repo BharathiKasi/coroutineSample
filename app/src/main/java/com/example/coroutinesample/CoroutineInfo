@@ -1,0 +1,55 @@
+What is Coroutine?
+Basically our mobile will run on Main Thread. So using this main thread we can perform small operation like UI onclick,
+logical operation and etc... . But when we try to perform huge operation like network operation, database operation then
+our application will be killed by the mobile with crash message "App is not responding"
+
+So we can understand that bulk operation we should not perform using main thread.
+
+Then how to perform bulk operation?
+ Well we can create background thread to perform bulk operation. But here we have limit that number background thread we are
+ creating in out application.
+
+ Then how we can achieve the bulk operation?
+
+ Here comes coroutine plays. Using single background thread we can perform multiple bulk operation with help of coroutine.
+
+
+ Basics of coroutine?
+
+ It is light weight thread. Like threads it can also run parrelaly, wait for each other and even can communicate with each other.
+ Croutine is not a thread. It looks like similar but both are different.
+ Coroutine are very very cheap. We can create million of corutine without memory consumption.
+
+
+ How to use coroutine?
+   We can create thread object like
+   thread {
+    // your code...
+   }
+
+   By default the application wait for background thread to complete its task. Once the all the background thread complete its
+   task then only application exit.
+
+   But in Coroutine, application will never wait by default for coroutine background task to complete. So we manually make
+   application to wait until the  coroutine task complete.
+
+
+
+  GlobalScope.launch {
+         println("Running under background thread ${Thread.currentThread().name}")
+         delay(1000) // it will only suspend the current coroutine and not whole application.
+         println("Finishing under background thread ${Thread.currentThread().name}")
+     }
+
+     delay() only can called inside the coroutine or any other suspend function.
+     It is suspend function.
+
+     What is suspend function?
+     A function which has it's modifier is suspend and also it will called from other suspend function or within the coroutine.
+
+     What is coroutine builders?
+     It is used to create a coroutine.
+     Basically we can create coroutine in three ways.
+     1.launch
+     2.aysn
+     3.runblocking.
